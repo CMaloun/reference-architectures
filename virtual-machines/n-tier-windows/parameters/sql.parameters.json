@@ -114,8 +114,8 @@
     },
     "virtualNetworkSettings": {
       "value": {
-        "name": "ra-ntier-sql-vnet",
-        "resourceGroup": "ra-ntier-sql-network-rg"
+        "name": "ts-vnet",
+        "resourceGroup": "sandbox1"
       }
     },
     "buildingBlockSettings": {
