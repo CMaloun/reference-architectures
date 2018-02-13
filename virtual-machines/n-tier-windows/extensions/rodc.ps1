@@ -28,17 +28,15 @@ $credential = New-Object System.Management.Automation.PSCredential ("$DomainName
 
 Install-WindowsFeature –Name AD-Domain-Services -includemanagementtools
 
-Import-Module ADDSDeployment
-
-Install-ADDSDomainController
--Credential $credential ` 
--CriticalReplicationOnly:$false  `
+Install-ADDSDomainController `
+-Credential $credential `
+-DomainName $DomainName `
+-CriticalReplicationOnly:$false `
 -SafeModeAdministratorPassword $secSafeModePassword `
--DomainName $domainName ` 
--InstallDNS:$true ` 
+-InstallDNS:$true `
 -LogPath $NTDSpath `
 -DatabasePath $NTDSpath `
 -ReadOnlyReplica:$true `
--SiteName $SiteName ` 
+-SiteName $SiteName `
 -SYSVOLPath $SYSVOLpath `
 -Force:$true
