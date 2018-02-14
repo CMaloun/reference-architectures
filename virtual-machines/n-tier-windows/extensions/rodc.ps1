@@ -43,7 +43,7 @@ $secSafeModePassword = ConvertTo-SecureString $SafeModePassword -AsPlainText -Fo
 $secAdminPassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential ("$DomainName\$AdminUser", $secAdminPassword)
 
-Install-WindowsFeature –Name AD-Domain-Services -includemanagementtools
+Install-WindowsFeature -Name AD-Domain-Services -includemanagementtools
 
 Install-ADDSDomainController `
 -Credential $credential `
