@@ -22,6 +22,23 @@ Param(
   [string]$SYSVOLpath
 )
 
+# initialisation des disques sous Windows
+
+$disks = Get-Disk | Where partitionstyle -eq 'raw' | sort number
+
+    $letters = 70..89 | ForEach-Object { [char]$_ }
+    $count = 0
+    $labels = "datas","logs"
+
+    foreach ($disk in $disks) {
+        $driveLetter = $letters[$count].ToString()
+        $disk | 
+        Initialize-Disk -PartitionStyle MBR -PassThru |
+        New-Partition -UseMaximumSize -DriveLetter $driveLetter |
+        Format-Volume -FileSystem NTFS -NewFileSystemLabel $labels[$count] -Confirm:$false -Force
+    $count++
+    }
+
 $secSafeModePassword = ConvertTo-SecureString $SafeModePassword -AsPlainText -Force
 $secAdminPassword = ConvertTo-SecureString $AdminPassword -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential ("$DomainName\$AdminUser", $secAdminPassword)
